@@ -1,5 +1,6 @@
 apply plugin: 'osgi'
 apply plugin: 'me.champeau.gradle.jmh'
+apply plugin: 'maven'
 
 dependencies {
     compileApi 'com.netflix.archaius:archaius-core:0.4.1'
@@ -45,4 +46,22 @@ jmh {
     warmup = '1s'
     warmupBatchSize = 1
     warmupIterations = 5
+}
+task createPom << {
+    pom {
+        project {
+            groupId 'com.netflix'
+            artifactId 'hystrix-core'
+            version '1.0.0'
+
+            inceptionYear '2008'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("pom.xml")
 }

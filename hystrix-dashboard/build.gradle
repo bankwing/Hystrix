@@ -1,4 +1,5 @@
 apply plugin: 'war'
+apply plugin: 'maven'
 apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
 dependencies {
@@ -13,4 +14,23 @@ dependencies {
 gretty {
 	httpPort = 7979
     servletContainer = 'jetty9'
+}
+
+task createPom << {
+    pom {
+        project {
+            groupId 'com.netflix'
+            artifactId 'hystrix-dashboard'
+            version '1.6.0-SNAPSHOT'
+
+            inceptionYear '2008'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("pom.xml")
 }
